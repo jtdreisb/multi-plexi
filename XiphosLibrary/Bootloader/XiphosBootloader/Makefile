@@ -218,9 +218,10 @@ endif
 # Programming support using avrdude. Settings and variables.
 
 # Programmer. To see all valid options, type: avrdude -c ?
-AVRDUDE_PROGRAMMER = avrispmkII
+AVRDUDE_PROGRAMMER = buspirate
+#avrispmkII
 
-AVRDUDE_PORT = usb
+AVRDUDE_PORT = /dev/tty.usbserial-A600dJmF15
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 
