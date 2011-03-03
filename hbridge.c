@@ -1,5 +1,4 @@
-
-
+#include "XiphosLibrary/globals.h"
 //! Specifies the valid values that can be passed to the hbridgeDirection() function.
 typedef enum
 {
@@ -145,25 +144,15 @@ void hbridgeDirection(HBridgeDirection direction)
 ISR(TIMER5_COMPC_vect)
 {
 	counter++;
-	// if (counter > 50)
-	// {
-		// clearScreen();
-		// printString("ISR2");
-	// }
-	// else
-	// {
-		// clearScreen();
-		// printString("ISR1");
-	// }
 	
 	if (counter == 100)
 	{
 		counter = 0;
 		hbridgeOutput(M0, 1);
-		// hbridgeOutput(M0, 1);
-		// hbridgeOutput(M1, 1);
-		// hbridgeOutput(M2, 1);
-		// hbridgeOutput(M3, 1);
+		hbridgeOutput(M0, 1);
+		hbridgeOutput(M1, 1);
+		hbridgeOutput(M2, 1);
+		hbridgeOutput(M3, 1);
 	}
 	
 	if (motor[0] == counter)
@@ -171,18 +160,18 @@ ISR(TIMER5_COMPC_vect)
 		hbridgeOutput(M0, 0);
 	}
 	
-	// if (motor[1] == counter)
-	// {
-		// hbridgeOutput(M1, 0);
-	// }
+	if (motor[1] == counter)
+	{
+		hbridgeOutput(M1, 0);
+	}
 	
-	// if (motor[2] == counter)
-	// {
-		// hbridgeOutput(M2, 0);
-	// }
-	
-	// if (motor[3] == counter)
-	// {
-		// hbridgeOutput(M3, 0);
-	// }
+	if (motor[2] == counter)
+	{
+		hbridgeOutput(M2, 0);
+	}
+		 		 		 		 	
+	if (motor[3] == counter)
+	{
+		hbridgeOutput(M3, 0);
+	}
 }

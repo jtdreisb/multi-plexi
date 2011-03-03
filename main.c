@@ -1,4 +1,6 @@
-
+/* Multiplexi
+ * main.c
+ */
 #include "XiphosLibrary/globals.h"
 #include "hbridge.c"
 #include <util/delay.h>
@@ -18,9 +20,9 @@ int main()
 
 	//Test 1
 	clearScreen();
-	printString("   Xiphos 1.0   ");
+	printString("Macs rule");
 	lowerLine();
-	printString(" RoboAddict.com");
+	printString("you all sucks");
 	buttonWait();
 
 	
@@ -29,6 +31,31 @@ int main()
 	
 	moveX(80);
 	moveY(10);
+	
+	clearScreen();
+	printString("80");
+	lowerLine();
+	printString("10");
+	buttonWait();
+	
+	moveX(50);
+	moveY(50);
+	
+	clearScreen();
+	printString("50");
+	lowerLine();
+	printString("50");
+	buttonWait();
+	
+	moveX(20);
+	moveY(70);
+	
+	clearScreen();
+	printString("20");
+	lowerLine();
+	printString("70");
+	buttonWait();
+	
 }
 
 void turnOnCollector()

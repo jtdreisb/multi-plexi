@@ -11,15 +11,16 @@ LIB = ./XiphosLibrary
 # This affects which library files get compiled, as well as which functions are enabled.
 USE_LCD    = 1
 USE_ADC    = 0
-USE_MOTOR0 = 0
-USE_MOTOR1 = 0
-NUM_SERVOS = 0
+USE_MOTOR0 = 1
+USE_MOTOR1 = 1
+NUM_SERVOS = 7
 USE_I2C    = 0
 
 
 # Specify any additional .c source files containing your program code.
 FILES = \
 		main.c \
+#//		hbridge.c \
 
 
 # The rest of the makefile is pulled in from MasterMakefile.mk in the XiphosLibrary folder.
