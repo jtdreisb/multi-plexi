@@ -19,8 +19,9 @@ USE_I2C    = 0
 
 # Specify any additional .c source files containing your program code.
 FILES = \
+		hbridge.c \
+		movement.c \
 		main.c \
-#//		hbridge.c \
 
 
 # The rest of the makefile is pulled in from MasterMakefile.mk in the XiphosLibrary folder.
