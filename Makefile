@@ -10,7 +10,7 @@ LIB = ./XiphosLibrary
 # Set these variables to specify which XiphosLibrary features your program requires.
 # This affects which library files get compiled, as well as which functions are enabled.
 USE_LCD    = 1
-USE_ADC    = 0
+USE_ADC    = 1
 USE_MOTOR0 = 1
 USE_MOTOR1 = 1
 NUM_SERVOS = 7

@@ -5,9 +5,12 @@
 #include "movement.h"
 
 #define DELAY 10
-#define SHOOTER_SPEED 255
-#define COLLECTOR_SPEED 160
+#define SHOOTER_SPEED 100
+#define COLLECTOR_SPEED 95
 
+void collectBackwards();
+void turnOnCollector();
+void turnOffCollector();
 
 
 int main()
@@ -16,58 +19,59 @@ int main()
 	initialize();
 	servoInit();
 	hbridgeInit();
+	adcInit();
 	moveX(0);
 	moveY(0);
 	//Test 1
 	clearScreen();
-	printString("Go Ninja!");
+	printString("Go Windows!");
 	lowerLine();
-	printString("");
+	printString("Boo Macs!");
 	buttonWait();
 	//spiralToInfinity();
-	for (;;) {
 
-		moveX(0);
-		moveY(0);
-		clearScreen();
+	collectBackwards();
+	turnOffCollector();
+	
+	clearScreen();
+	printString("DONE");
+}
+
+void collectBackwards()
+{
+	turnOnCollector();
+	moveY(-50);
+	
+	while(1)
+	{
+		if (analog(0) > 80)
+		{
+			moveX(0);
+			moveY(0);
+			break;
+		}
 		
-		printString("0");
-		lowerLine();
-		printString("0");
-		buttonWait();
-
-		moveX(50);
-		moveY(50);
-
-		clearScreen();
-		printString("50");
-		lowerLine();
-		printString("50");
-		buttonWait();
-
-		moveX(20);
-		moveY(20);
-
-		clearScreen();
-		printString("20");
-		lowerLine();
-		printString("20");
-		buttonWait();	
+		if (analog(2) > 50 || analog(3) > 50)
+		{
+			moveX(-10);
+		}
+		else
+		{
+			moveX(0);
+		}
 	}
-
-		
 }
 
 void turnOnCollector()
 {
-	motor0(SHOOTER_SPEED);
-	motor1(COLLECTOR_SPEED);
+	motor1(SHOOTER_SPEED);
+	motor0(COLLECTOR_SPEED);
 }
 
 void turnOffCollector()
 {
-	motor0(SHOOTER_SPEED);
-	motor1(COLLECTOR_SPEED);
+	motor1(127);
+	motor0(127);
 }
 
 
