@@ -16,8 +16,8 @@
 	#include "LCDSpecialChars.h" //defines friendly names for various LCD special character codes.
 #endif
 
-//! CPU speed (16MHz) for timer and delay loop calculations.
-#define F_CPU 16000000UL
+//! CPU speed (8MHz) for timer and delay loop calculations.
+#define F_CPU 8000000UL
 
 //! Define a Boolean type and boolean values.
 typedef enum

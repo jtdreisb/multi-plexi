@@ -16,51 +16,41 @@ void hbridgeInit()
 	//enable interrupt for output compare unit 3C
 	TIMSK5 |= _BV(OCIE5C);
 	
-	digitalDirection(M0, OUTPUT);
-	digitalDirection(M1, OUTPUT);
-	digitalDirection(M2, OUTPUT);
-	digitalDirection(M3, OUTPUT);
-	digitalDirection(L, OUTPUT);
-	digitalDirection(R, OUTPUT);
-	digitalDirection(B, OUTPUT);
-	digitalDirection(F, OUTPUT);
+	// Setup Y motor ouputs
+	digitalDirection(Y_MOTOR_FRONT, OUTPUT);
+	digitalDirection(Y_MOTOR_BACK, OUTPUT);
+	digitalDirection(Y_A, OUTPUT);
+	digitalDirection(Y_B, OUTPUT);
+	
+	// X motor ouputs
+	digitalDirection(X_MOTOR_LEFT, OUTPUT);
+	digitalDirection(X_MOTOR_RIGHT, OUTPUT);
+	digitalDirection(X_A, OUTPUT);
+	digitalDirection(X_B, OUTPUT);
 }
 
-void hbridgeOutput(HBridge num, u08 value)
-{
-	//if the output should be set
-	if (value > 0)
-	{
-		sbi(PORTA, num - 2);
-	}
-	//else the output should be cleared
-	else
-	{
-		cbi(PORTA, num - 2);
-	}
-}
 
 // sets the speed
 // speed is between 0 and 100
 // 0 is coast
 // 100 is full speed
-void hbridgeSpeed(HBridge num, s08 speed)
+void hbridgeSpeed(u08 num, s08 speed)
 {
 	switch (num)
 	{
-		case F:
+		case Y_MOTOR_FRONT:
 			motor[0] = speed;
 			break;
 			
-		case B:
+		case Y_MOTOR_BACK:
 			motor[1] = speed;
 			break;
 			
-		case L:
+		case X_MOTOR_LEFT:
 			motor[2] = speed;
 			break;
 			
-		case R:
+		case X_MOTOR_RIGHT:
 			motor[3] = speed;
 			break;
 	}
@@ -72,40 +62,40 @@ void hbridgeDirection(HBridgeDirection direction)
 	switch (direction)
 	{
 		case LEFT:
-			hbridgeOutput(L, 1);
-			hbridgeOutput(R, 0);
+			digitalOutput(X_A, 1);
+			digitalOutput(X_B, 0);
 			break;
 			
 		case RIGHT:
-			hbridgeOutput(R, 1);
-			hbridgeOutput(L, 0);
+			digitalOutput(X_A, 0);
+			digitalOutput(X_B, 1);
 			break;
 			
 		case FORWARD:
-			hbridgeOutput(F, 1);
-			hbridgeOutput(B, 0);
+			digitalOutput(Y_A, 0);
+			digitalOutput(Y_B, 1);
 			break;
 			
 		case BACKWARD:
-			hbridgeOutput(B, 1);
-			hbridgeOutput(F, 0);
+			digitalOutput(Y_A, 1);
+			digitalOutput(Y_B, 0);
 			break;
 			
-		case FBBRAKE:
-			hbridgeOutput(F, 0);
-			hbridgeOutput(B, 0);
+		case YBRAKE:
+			digitalOutput(Y_A, 0);
+			digitalOutput(Y_B, 0);
 			break;
 			
-		case LRBRAKE:
-			hbridgeOutput(L, 0);
-			hbridgeOutput(R, 0);
+		case XBRAKE:
+			digitalOutput(X_A, 0);
+			digitalOutput(X_B, 0);
 			break;
 			
-		case STOP:
-			hbridgeOutput(F, 0);
-			hbridgeOutput(B, 0);
-			hbridgeOutput(L, 0);
-			hbridgeOutput(R, 0);
+		case BRAKE:
+			digitalOutput(Y_A, 0);
+			digitalOutput(Y_B, 0);
+			digitalOutput(X_A, 0);
+			digitalOutput(X_B, 0);
 			break;
 	}
 }
@@ -117,30 +107,29 @@ ISR(TIMER5_COMPC_vect)
 	if (counter == 100)
 	{
 		counter = 0;
-		hbridgeOutput(M0, 1);
-		hbridgeOutput(M0, 1);
-		hbridgeOutput(M1, 1);
-		hbridgeOutput(M2, 1);
-		hbridgeOutput(M3, 1);
+		digitalOutput(Y_MOTOR_FRONT,	1);
+		digitalOutput(Y_MOTOR_BACK,		1);
+		digitalOutput(X_MOTOR_LEFT,		1);
+		digitalOutput(X_MOTOR_RIGHT,	1);
 	}
 	
 	if (motor[0] == counter)
 	{
-		hbridgeOutput(M0, 0);
+		digitalOutput(Y_MOTOR_FRONT, 0);
 	}
 	
 	if (motor[1] == counter)
 	{
-		hbridgeOutput(M1, 0);
+		digitalOutput(Y_MOTOR_BACK, 0);
 	}
 	
 	if (motor[2] == counter)
 	{
-		hbridgeOutput(M2, 0);
+		digitalOutput(X_MOTOR_LEFT, 0);
 	}
 		 		 		 		 	
 	if (motor[3] == counter)
 	{
-		hbridgeOutput(M3, 0);
+		digitalOutput(X_MOTOR_RIGHT, 0);
 	}
 }

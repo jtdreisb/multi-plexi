@@ -5,61 +5,84 @@
 #include "movement.h"
 
 #define DELAY 10
-#define SHOOTER_SPEED 100
-#define COLLECTOR_SPEED 95
+#define SHOOTER_SPEED 80
+#define COLLECTOR_SPEED 105
 
 void collectBackwards();
 void turnOnCollector();
 void turnOffCollector();
+void goForwards();
 
 
 int main()
 {
-	
 	initialize();
-	servoInit();
+	servoRange(0, 11);
+	
+	for (;;) {
+		
+		servo(0, 0);
+		buttonWait();
+		servo(0, 255);	
+		buttonWait();	
+
+	}
+	
+	
 	hbridgeInit();
-	adcInit();
+
 	moveX(0);
 	moveY(0);
 	//Test 1
 	clearScreen();
-	printString("Go Windows!");
+	printString("Test Move");
 	lowerLine();
-	printString("Boo Macs!");
-	buttonWait();
-	//spiralToInfinity();
+	
 
-	collectBackwards();
-	turnOffCollector();
+	buttonWait();
+	clearScreen();
+	printString("collecting");	
+	
+	digitalDirection(0,INPUT);
+	digitalDirection(1, INPUT);
+	
+	while(!getButton1()) {
+		turnOnCollector();
+		collectBackwards();
+		turnOffCollector();
+		goForwards();
+	}
 	
 	clearScreen();
 	printString("DONE");
 }
 
+void goForwards()
+{
+	moveY(30);
+	while(!digitalInput(0)) {
+		delayMs(50);
+	}
+	moveY(0);
+}
 void collectBackwards()
 {
-	turnOnCollector();
-	moveY(-50);
+	// Really slow
+	moveY(-8);
 	
+	//moveX(0);
 	while(1)
 	{
-		if (analog(0) > 80)
+		// if (analog(0) > 80)
+		if (digitalInput(1)) // bump sensor is tripped
 		{
 			moveX(0);
 			moveY(0);
 			break;
 		}
-		
-		if (analog(2) > 50 || analog(3) > 50)
-		{
-			moveX(-10);
-		}
-		else
-		{
-			moveX(0);
-		}
+		delayMs(50);
 	}
+
 }
 
 void turnOnCollector()

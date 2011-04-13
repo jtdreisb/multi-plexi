@@ -12,7 +12,8 @@
 #  For a fancy Atmel AVRISP mkII In-System Programmer simply enter usb (lowercase is important).
 #    On Windows, you may need to install the LibUSB drivers included with WinAVR at: <WinAVR folder>\utils\libusb\bin\avrisp2.inf
 #  For a cheapo PonyProg or Futurlec style parallel port programmer enter lpt1 (lowercase is important).
-PORT = /dev/tty.usbserial-A7005hpH
+PORT = $(shell ls /dev/tty.usb*)
+#/dev/tty.usbserial-A7005hpH
 
 # Specify the type of In-System Programmer (ISP) device or cable you are using.
 #  For the onboard FTDI USB-to-UART converter (used with a butterfly bootloader) use butterfly -b 57600

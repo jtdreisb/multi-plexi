@@ -8,19 +8,18 @@ void moveX(s08 speed)
 	if (speed > 0)
 	{
 		hbridgeDirection(RIGHT);
-		hbridgeSpeed(L, speed);
-		hbridgeSpeed(R, speed);
+		hbridgeSpeed(X_MOTOR_LEFT, speed);
+		hbridgeSpeed(X_MOTOR_RIGHT, speed);
 	}
 	else if (speed < 0)
 	{
 		hbridgeDirection(LEFT);
-		hbridgeSpeed(L, speed&~0x80);
-		hbridgeSpeed(R, speed&~0x80);
+		hbridgeSpeed(X_MOTOR_LEFT, -speed);
+		hbridgeSpeed(X_MOTOR_RIGHT, -speed);
 	}
 	else
 	{
-		hbridgeSpeed(L, 0);
-		hbridgeSpeed(R, 0);
+		hbridgeDirection(XBRAKE);
 	}
 }
 
@@ -30,19 +29,18 @@ void moveY(s08 speed)
 	if (speed > 0)
 	{
 		hbridgeDirection(FORWARD);
-		hbridgeSpeed(F, speed);
-		hbridgeSpeed(B, speed);
+		hbridgeSpeed(Y_MOTOR_FRONT, speed);
+		hbridgeSpeed(Y_MOTOR_BACK, speed);
 	}
 	else if (speed < 0)
 	{
 		hbridgeDirection(BACKWARD);
-		hbridgeSpeed(F, speed&~0x80);
-		hbridgeSpeed(B, speed&~0x80);
+		hbridgeSpeed(Y_MOTOR_FRONT, -speed);
+		hbridgeSpeed(Y_MOTOR_BACK, -speed);
 	}
 	else
 	{
-		hbridgeSpeed(F, 0);
-		hbridgeSpeed(B, 0);
+		hbridgeDirection(YBRAKE);
 	}
 }
 
