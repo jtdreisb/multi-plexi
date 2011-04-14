@@ -5,21 +5,24 @@
 #include "movement.h"
 
 #define DELAY 10
-#define SHOOTER_SPEED 80
-#define COLLECTOR_SPEED 105
+#define SHOOTER_SPEED 70//was 80
+#define COLLECTOR_SPEED 90
 //CHANGE AS NEEDED BEFORE DOWNLOADING TO BOT!
-#define RB 1 //0 is blue, 1 is red
+#define RB 0 //0 is blue, 1 is red
 
 void collectBackwards();
 void turnOnCollector();
 void turnOffCollector();
 void goForwards();
+void goRightWall();
 
 
 int main()
 {
 	initialize();
 	hbridgeInit();
+	adcInit();
+
 
 	moveX(0);
 	moveY(0);
@@ -35,14 +38,22 @@ int main()
 
 		buttonWait();
 		clearScreen();
+		printString("waiting");
+
+		while(analog(0) > 127) {
+			delayMs(50);
+		}
+		
+		clearScreen();
 		printString("collecting");	
 		
 		digitalDirection(0,INPUT);
 		digitalDirection(1, INPUT);
 		
-		while(!getButton1()) {
+		while(1) { //!getButton1()) {
 			goForwards();
 			turnOnCollector();
+			delayMs(3000);
 			collectBackwards();
 			turnOffCollector();
 		}
@@ -65,7 +76,7 @@ int main()
 		digitalDirection(1, INPUT);
 		
 		goRightWall();
-		while(!getButton1()) {
+		while(1) { //!getButton1()) {
 			turnOnCollector();
 			collectBackwards();
 			turnOffCollector();
@@ -80,6 +91,7 @@ int main()
 
 void goForwards()
 {
+	moveX(10);
 	moveY(30);
 	while(!digitalInput(0)) {
 		delayMs(50);
@@ -113,8 +125,8 @@ void goRightWall()
 	while(!digitalInput(0)) {
 		delayMs(50);
 	}
-	moveY(0); //moveY(1) to keep up against the wall?
-	while(!digitalInput(2)) { //assuming the right side sensor is di2
+	moveY(0); //moveY(1) to keep up against the front wall?
+	while(analog(0) < 127) { //assuming the right side sensor is analog 0
 		delayMs(50);
     }
 	moveX(0);
