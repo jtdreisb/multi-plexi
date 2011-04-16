@@ -5,8 +5,8 @@
 #include "movement.h"
 
 #define DELAY 10
-#define SHOOTER_SPEED 30//was 80
-#define COLLECTOR_SPEED 90
+#define SHOOTER_SPEED 100//was 80
+#define COLLECTOR_SPEED 164//maybe?
 //CHANGE AS NEEDED BEFORE DOWNLOADING TO BOT!
 #define RB 1 //0 is blue, 1 is red
 
@@ -23,7 +23,6 @@ int main()
 	initialize();
 	hbridgeInit();
 	adcInit();
-
 
 	moveX(0);
 	moveY(0);
@@ -72,10 +71,16 @@ int main()
 		digitalDirection(0,INPUT);
 		digitalDirection(1, INPUT);
 	
-		turnOnCollector();
+	//	turnOnCollector();
 
+	/*	servoRange(0, SERVO_RANGE_EXTENDED5);
+		
+		servo(0, 255);
+		delayMs(2000);
+		servo(0, 0);
+*/
 
-/*		clearScreen();
+		clearScreen();
 		printString("go other side");	
 		goRightWall();
 		
@@ -88,7 +93,7 @@ int main()
 			turnOffCollector();
 			goForwards();
 		}
-*/	}
+	}
 
     delayMs(5000);	
 	clearScreen();

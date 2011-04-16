@@ -43,6 +43,7 @@ typedef enum
 	SERVO_RANGE_EXTENDED2 = 10,
 	SERVO_RANGE_EXTENDED3 = 11,
 	SERVO_RANGE_EXTENDED4 = 12,
+	SERVO_RANGE_EXTENDED5 = 15
 } ServoRange;
 
 //Define new datatypes as easier shorthand
