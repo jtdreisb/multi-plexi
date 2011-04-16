@@ -6,11 +6,11 @@
 
 
 #define DELAY 10
-#define RB 1 //0 is blue, 1 is red, 2 is yellow
+#define RB 0 //0 is blue, 1 is red, 2 is yellow
 #if RB==0
 	#define SHOOTER_SPEED 70
 #elif RB==1	
-#define SHOOTER_SPEED 110//was 80
+#define SHOOTER_SPEED 95//110//was 80
 	#endif
 #define COLLECTOR_SPEED 164//maybe?
 //CHANGE AS NEEDED BEFORE DOWNLOADING TO BOT!
@@ -55,7 +55,7 @@ int main()
 		digitalDirection(0,INPUT);
 		digitalDirection(1, INPUT);
 	
-		goForwards();
+		
 		while(1) { //!getButton1()) {
 			goForwards();
 			turnOnCollector();
@@ -136,12 +136,12 @@ void collectBackwards()
 
 void goRightWall() 
 {
-	moveX(10); 
+	moveX(0); 
 	moveY(30);
 	while(!digitalInput(0)) {
 		delayMs(50);
 	}
-	moveY(0); //moveY(1) to keep up against the front wall?
+	moveY(5);
 	moveX(30);
 	while(analog(0) < 127) { //assuming the right side sensor is analog 0
 		delayMs(50);
