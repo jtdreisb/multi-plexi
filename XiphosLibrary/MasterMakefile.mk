@@ -13,7 +13,8 @@
 #    On Windows, you may need to install the LibUSB drivers included with WinAVR at: <WinAVR folder>\utils\libusb\bin\avrisp2.inf
 #  For a cheapo PonyProg or Futurlec style parallel port programmer enter lpt1 (lowercase is important).
 #PORT = COM7 #blue
-PORT = /dev/tty.usbserial-A7005h5q
+#PORT = COM4 #red
+PORT = COM8 #yellow
 #/dev/tty.usbserial-A7005hpj
 #/dev/tty.usbserial-A7005hpH
 

@@ -23,6 +23,25 @@ void moveX(s08 speed)
 	}
 }
 
+void moveXAdjusted(s08 speed) {
+	if (speed > 0)
+	{
+		hbridgeDirection(RIGHT);
+		hbridgeSpeed(X_MOTOR_LEFT, speed);
+		hbridgeSpeed(X_MOTOR_RIGHT, speed);
+	}
+	else if (speed < 0)
+	{
+		hbridgeDirection(LEFT);
+		hbridgeSpeed(X_MOTOR_LEFT, -speed);
+		hbridgeSpeed(X_MOTOR_RIGHT, -speed);
+	}
+	else
+	{
+		hbridgeDirection(XBRAKE);
+	}
+}
+
 // speed is between -100 and 100
 void moveY(s08 speed)
 {
@@ -37,6 +56,48 @@ void moveY(s08 speed)
 		hbridgeDirection(BACKWARD);
 		hbridgeSpeed(Y_MOTOR_FRONT, -speed);
 		hbridgeSpeed(Y_MOTOR_BACK, -speed);
+	}
+	else
+	{
+		hbridgeDirection(YBRAKE);
+	}
+}
+
+void moveY2(s08 speed)
+{
+	
+	if (speed > 0)
+	{
+		hbridgeDirection(FORWARD);
+		hbridgeSpeed(Y_MOTOR_BACK, speed);
+		hbridgeSpeed(Y_MOTOR_FRONT, 0);
+	}
+	else if (speed < 0)
+	{
+		hbridgeDirection(BACKWARD);
+		hbridgeSpeed(Y_MOTOR_BACK, -speed);
+		hbridgeSpeed(Y_MOTOR_FRONT, 0);
+	}
+	else
+	{
+		hbridgeDirection(YBRAKE);
+	}
+}
+
+void moveY3(s08 speed)
+{
+	
+	if (speed > 0)
+	{
+		hbridgeDirection(FORWARD);
+		hbridgeSpeed(Y_MOTOR_FRONT, speed);
+		hbridgeSpeed(Y_MOTOR_BACK, 0);
+	}
+	else if (speed < 0)
+	{
+		hbridgeDirection(BACKWARD);
+		hbridgeSpeed(Y_MOTOR_FRONT, -speed);
+		hbridgeSpeed(Y_MOTOR_BACK, 0);
 	}
 	else
 	{

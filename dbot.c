@@ -1,7 +1,7 @@
 #include "XiphosLibrary/globals.h"
 // looking from front
-#define STL 10
-#define STR 10
+#define STL 0 //was 10
+#define STR 0 //was 10
 #define SBL 100
 #define SBR 35
 
@@ -19,21 +19,19 @@ void stop(){
 
 void expand() {
 	
-	
 	servo(1, STL);
-	delayMs(500);
+	delayMs(100);
 	servo(5, STR);
-	delayMs(500);
-	servo(4, SBL);
-	delayMs(500);
+	delayMs(100);
+/*	servo(4, SBL);
+	delayMs(100);
 	servo(6, SBR);
-	delayMs(500);
-	
-	
+	delayMs(100);
+*/	
 	servoOff(1);
-	servoOff(4);
+//	servoOff(4);
 	servoOff(5);
-	servoOff(6);
+//	servoOff(6);
 }
 // start by moving right
 // then expand and wait for abit 
@@ -41,18 +39,47 @@ void expand() {
 void normal() {
 	clearScreen();
 	printString("IN NORMAL");
-	move(RIGHT);
+//	delayMs(10000);
+//	move(RIGHT);
 	expand();
-	delayMs(2000);
+/*	delayMs(900);
 	for (;;) {
 		clearScreen();
 		printString("looping");
 		move(RIGHT);
+		delayMs(3450);
+		move(LEFT);
 		delayMs(3500);
+	}
+*/}
+void moveNow() {
+for (;;) {
+		clearScreen();
+		printString("looping");
+		move(RIGHT);
+		delayMs(3450);
 		move(LEFT);
 		delayMs(3500);
 	}
 }
+
+//covers the middle of the net
+void notNormal() {
+	clearScreen();
+	printString("IN NOT NORMAL");
+//	delayMs(10000);
+//	move(RIGHT);
+	expand();
+/*	delayMs(700);
+	for (;;) {
+		clearScreen();
+		printString("looping");
+		move(RIGHT);
+		delayMs(2500);
+		move(LEFT);
+		delayMs(2500);
+	}
+*/}
 
 #define RESETBTN 3
 
@@ -62,9 +89,6 @@ void startDbot() {
 	clearScreen();
 	printString("robotReady");
 	buttonWait();
-
-
-	
 	
 	for (;;) {
 		clearScreen();
@@ -89,7 +113,20 @@ void startDbot() {
 				break;
 			}
 			if (digitalInput(RESETBTN)) {
-				normal();
+				notNormal();
+			}
+			delayMs(50);
+		}
+		clearScreen();
+		printString("No Expand");
+		for (;;) {
+			if (getButton1()) {
+				for (;getButton1();)
+					;
+				break;
+			}
+			if (digitalInput(RESETBTN)) {
+				moveNow();
 			}
 			delayMs(50);
 		}

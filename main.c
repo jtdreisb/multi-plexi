@@ -6,11 +6,13 @@
 
 
 #define DELAY 10
-#define RB 0 //0 is blue, 1 is red, 2 is yellow
+#define RB 2 //0 is blue, 1 is red, 2 is yellow
 #if RB==0
 	#define SHOOTER_SPEED 70
 #elif RB==1	
-#define SHOOTER_SPEED 95//110//was 80
+	#define SHOOTER_SPEED 110//95//110//was 80
+#elif RB==2
+	#define SHOOTER_SPEED 127
 	#endif
 #define COLLECTOR_SPEED 164//maybe?
 //CHANGE AS NEEDED BEFORE DOWNLOADING TO BOT!
@@ -22,7 +24,10 @@ void turnOffCollector();
 void goForwards();
 void goRightWall();
 void motorTest();
-
+void pickSuperBall();
+void dumpSuperBall();
+void moveRight();
+void goRightNoSuper();
 
 int main()
 {
@@ -77,16 +82,27 @@ int main()
 	
 	//	turnOnCollector();
 
-	/*	servoRange(0, SERVO_RANGE_EXTENDED5);
-		
-		servo(0, 255);
-		delayMs(2000);
-		servo(0, 0);
-*/
+		servoRange(0, SERVO_RANGE_EXTENDED5);
 
+	//	goRightWall();
+	//	moveRight();
+/*		while(1) {
+			print_u08(analog(3));
+			delayMs(100);
+		    clearScreen();
+	    }
+*/	/*	servo(0, 0);
+		delayMs(2000);
+		servo(0, 255);
+*/
+/*		pickSuperBall();
+		delayMs(2000);
+		dumpSuperBall();
+*/
 		clearScreen();
-		printString("go other side");	
-		goRightWall();
+		printString("go other side");
+		
+		goRightNoSuper();
 		
 		delayMs(500);
 		clearScreen();
@@ -97,6 +113,7 @@ int main()
 			turnOffCollector();
 			goForwards();
 		}
+		
 #elif RB==2
 		startDbot();
 #endif
@@ -134,6 +151,35 @@ void collectBackwards()
 
 }
 
+void moveRight() {
+
+	while(1) {
+		moveY(0);
+		moveX(30);
+		while(digitalInput(0)) {
+			delayMs(50);
+			if(analog(0) >127) {
+				return;
+			}
+		}
+		moveX(0);
+		moveY3(25);
+		while(!digitalInput(0)) {
+			delayMs(50);
+		}
+	}
+}
+
+void goRightNoSuper() {
+	moveXAdjusted(30);
+	moveY(0);
+	while(analog(0) < 127) {
+		delayMs(50);
+	}
+	moveY(0);
+	moveX(0);
+}
+
 void goRightWall() 
 {
 	moveX(0); 
@@ -141,9 +187,30 @@ void goRightWall()
 	while(!digitalInput(0)) {
 		delayMs(50);
 	}
-	moveY(5);
-	moveX(30);
-	while(analog(0) < 127) { //assuming the right side sensor is analog 0
+	moveY(-20);
+	delayMs(200);
+	moveY(0);
+	moveXAdjusted(30);
+	
+	while(analog(3) < 50) {
+		delayMs(50);
+	}
+	delayMs(100);
+	moveX(0);
+	moveY(20);
+	while(!digitalInput(0)) {
+		delayMs(50);
+	}
+	moveY(-20);
+	while(analog(3) < 50) {
+		delayMs(50);
+	}
+	delayMs(150);
+	moveY(0);
+	pickSuperBall();
+	
+	moveXAdjusted(30);
+	while(analog(0) < 127) { 
 		delayMs(50);
     }
 	moveX(0);
@@ -159,6 +226,19 @@ void turnOnCollector()
 void turnOffCollector()
 {
 	motor1(127);
+	motor0(127);
+}
+
+void pickSuperBall() {
+	servo(0, 0);
+	delayMs(3000);
+	servo(0, 200); //random pick
+}
+
+void dumpSuperBall() {
+	servo(0, 255);
+	motor0(-COLLECTOR_SPEED);
+	delayMs(2000);
 	motor0(127);
 }
 
