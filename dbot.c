@@ -1,9 +1,9 @@
 #include "XiphosLibrary/globals.h"
 // looking from front
-#define STL 33
-#define STR 15
-#define SBL 95
-#define SBR 45
+#define STL 10
+#define STR 10
+#define SBL 100
+#define SBR 35
 
 #define RIGHT 50
 #define LEFT  205 
@@ -16,23 +16,45 @@ void stop(){
 	motor0(127);
 	motor1(127);
 }
+
+void expand() {
+	
+	
+	servo(1, STL);
+	delayMs(500);
+	servo(5, STR);
+	delayMs(500);
+	servo(4, SBL);
+	delayMs(500);
+	servo(6, SBR);
+	delayMs(500);
+	
+	
+	servoOff(1);
+	servoOff(4);
+	servoOff(5);
+	servoOff(6);
+}
 // start by moving right
 // then expand and wait for abit 
 // then bounce side to side
 void normal() {
 	clearScreen();
 	printString("IN NORMAL");
-	
-	delayMs(1000);
+	move(RIGHT);
+	expand();
+	delayMs(2000);
 	for (;;) {
+		clearScreen();
+		printString("looping");
 		move(RIGHT);
-		delayMs(2000);
+		delayMs(3500);
 		move(LEFT);
-		delayMs(2000);
+		delayMs(3500);
 	}
 }
 
-#define RESETBTN 0
+#define RESETBTN 3
 
 
 void startDbot() {
@@ -40,15 +62,9 @@ void startDbot() {
 	clearScreen();
 	printString("robotReady");
 	buttonWait();
-/*
-	servo(1, STL);
-	delayMs(500);
-	servo(2, STR);
-	delayMs(500);
-	servo(3, SBL);
-	delayMs(500);
-	servo(7, SBR);
-*/	
+
+
+	
 	
 	for (;;) {
 		clearScreen();
