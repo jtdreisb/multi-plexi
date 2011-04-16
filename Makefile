@@ -21,6 +21,7 @@ USE_I2C    = 0
 FILES = \
 		hbridge.c \
 		movement.c \
+		dbot.c \
 		main.c \
 
 

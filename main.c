@@ -4,11 +4,12 @@
 #include "XiphosLibrary/globals.h"
 #include "movement.h"
 
+
 #define DELAY 10
 #define SHOOTER_SPEED 100//was 80
 #define COLLECTOR_SPEED 164//maybe?
 //CHANGE AS NEEDED BEFORE DOWNLOADING TO BOT!
-#define RB 1 //0 is blue, 1 is red
+#define RB 2 //0 is blue, 1 is red, 2 is yellow
 
 void collectBackwards();
 void turnOnCollector();
@@ -22,12 +23,11 @@ int main()
 {
 	initialize();
 	hbridgeInit();
-	adcInit();
 
 	moveX(0);
 	moveY(0);
 	
-	if(RB == 0) { 
+#if RB==0 
 		//Test 1
 		clearScreen();
 		printString("Blue Bot!");
@@ -59,7 +59,7 @@ int main()
 		}
 
 	}
-	else { //assuming RB = 1, red bot
+#elif RB==1 //assuming RB = 1, red bot
 		//Test 1
 		clearScreen();
 		printString("Red Bot!");
@@ -93,7 +93,9 @@ int main()
 			turnOffCollector();
 			goForwards();
 		}
-	}
+#elif RB==2
+		startDbot();
+#endif
 
     delayMs(5000);	
 	clearScreen();

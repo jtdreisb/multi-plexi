@@ -5,3 +5,5 @@ void moveY(s08 speed);
 
 // more complex movements
 void spiralToInfinity();
+
+void startDbot();
