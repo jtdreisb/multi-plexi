@@ -53,7 +53,10 @@ void normal() {
 	}
 */}
 void moveNow() {
-for (;;) {
+	delayMs(10000);
+	move(RIGHT);
+	delayMs(2000);
+	for (;;) {
 		clearScreen();
 		printString("looping");
 		move(RIGHT);
@@ -99,7 +102,7 @@ void startDbot() {
 					;
 				break;
 			}
-			if (digitalInput(RESETBTN)) {
+			if (!digitalInput(RESETBTN)) {
 				normal();
 			}
 			delayMs(50);
@@ -112,7 +115,7 @@ void startDbot() {
 					;
 				break;
 			}
-			if (digitalInput(RESETBTN)) {
+			if (!digitalInput(RESETBTN)) {
 				notNormal();
 			}
 			delayMs(50);
@@ -125,7 +128,7 @@ void startDbot() {
 					;
 				break;
 			}
-			if (digitalInput(RESETBTN)) {
+			if (!digitalInput(RESETBTN)) {
 				moveNow();
 			}
 			delayMs(50);

@@ -14,7 +14,8 @@
 #  For a cheapo PonyProg or Futurlec style parallel port programmer enter lpt1 (lowercase is important).
 #PORT = COM7 #blue
 #PORT = COM4 #red
-PORT = COM8 #yellow
+PORT = /dev/tty.usbserial-A7005hpj
+#COM8 #yellow
 #/dev/tty.usbserial-A7005hpj
 #/dev/tty.usbserial-A7005hpH
 
